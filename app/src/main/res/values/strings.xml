@@ -3,9 +3,17 @@
     <string name="app_name">Vk offline</string>
     <string name="action_search">action_search</string>
     <string-array name="screen_array">
-        <item>Screen 1</item>
-        <item>Screen 2</item>
-        <item>Screen 3</item>
+        <item>Моя Страница</item>
+        <item>Новости</item>
+        <item>Сообщения</item>
+        <item>Друзья</item>
+        <item>Группы</item>
+        <item>Фотографии</item>
+        <item>Аудиозаписи</item>
+        <item>Видеозаписи</item>
+        <item>Закладки</item>
+        <item>Моя Страница</item>
+        <item>Настройки</item>
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->

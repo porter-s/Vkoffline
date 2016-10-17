@@ -335,7 +335,11 @@ public class LoginActivity extends ActionBarActivity {
             @Override
             public void onResult(VKAccessToken res) {
                 // User passed Authorization
-                startAppActivity();
+                //startAppActivity();
+                /*FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, new ScreenOne()).commit();*/
+
                 Toast.makeText(getApplicationContext(), "AccessToken invalidated", Toast.LENGTH_LONG).show();
             }
 
