@@ -31,6 +31,10 @@ import com.vk.sdk.VKScope;
 import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKError;
 
+import java.util.ArrayList;
+
+import actionBarItem.AdapterItemAB;
+import actionBarItem.ItemAB;
 import layout.ScreenOne;
 import ru.example.sapp.vkoffline.R;
 
@@ -67,6 +71,16 @@ public class LoginActivity extends ActionBarActivity {
             VKScope.DOCS
     };
 
+    ArrayList<ItemAB> itemABArrayList = new ArrayList<ItemAB>();
+    AdapterItemAB itemAdapter;
+
+    void fillData(String[] _string) {
+        itemABArrayList.add(new ItemAB(R.drawable.ic_home_black_12dp,_string[0]));
+        itemABArrayList.add(new ItemAB(R.drawable.ic_drawer,_string[1]));
+        itemABArrayList.add(new ItemAB(R.drawable.ic_drawer,_string[2]));
+        itemABArrayList.add(new ItemAB(R.drawable.ic_drawer,_string[3]));
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,10 +91,16 @@ public class LoginActivity extends ActionBarActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-        // Set the adapter for the list view
+        fillData(mScreenTitles);
+        /*// Set the adapter for the list view
         mDrawerList.setAdapter(new ArrayAdapter<String>(this,
                 R.layout.drawer_list_item, mScreenTitles));
-        // Set the list's click listener
+        // Set the list's click listener*/
+        //-----кастомный адаптер-----------------------------------
+        itemAdapter = new AdapterItemAB(this, itemABArrayList);
+        mDrawerList.setAdapter(itemAdapter);
+        //---------------------------------------------------------
+
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
