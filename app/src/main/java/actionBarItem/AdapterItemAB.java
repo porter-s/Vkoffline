@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,8 +22,9 @@ public class AdapterItemAB extends BaseAdapter {
         Context ctx;
         LayoutInflater lInflater;
         ArrayList<ItemAB> objects;
+        FrameLayout selectItem;
 
-        public AdapterItemAB(Context context, ArrayList<ItemAB> itemAB) {
+    public AdapterItemAB(Context context, ArrayList<ItemAB> itemAB) {
             ctx = context;
             objects = itemAB;
             lInflater = (LayoutInflater) ctx
@@ -58,8 +60,11 @@ public class AdapterItemAB extends BaseAdapter {
 
             ItemAB p = getProduct(position);
 
+            selectItem = (FrameLayout) view.findViewById(R.id.selectItem);
+            selectItem.setVisibility(View.GONE);
             ((TextView) view.findViewById(R.id.nameIAB)).setText(p.name);
             ((ImageView) view.findViewById(R.id.iconIAB)).setImageResource(p.icon);
+
 
             return view;
         }

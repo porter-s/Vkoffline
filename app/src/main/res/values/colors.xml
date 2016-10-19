@@ -3,5 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#285473</color>
-    <item name="blue" type="color">#E1E5EB</item>
+
+    <item name="backgrountMenu" type="color">#E1E5EB</item>
+    <color name="colorIconMenu">#99B1C6</color>
+    <color name="colorSelectMenu">#ff00</color>
 </resources>

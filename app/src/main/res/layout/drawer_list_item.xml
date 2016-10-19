@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorSelectMenu"
+        android:alpha="0.25"
+        android:id="@+id/selectItem">
+
+    </FrameLayout>
+
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="40dp"
         android:layout_marginLeft="5dp"
         android:layout_weight="1"
         android:orientation="horizontal"
@@ -16,11 +26,9 @@
         android:gravity="center_vertical">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
             android:layout_marginLeft="1dp"
-
-            app:srcCompat="@android:drawable/btn_star_big_on"
             android:id="@+id/iconIAB"
             android:layout_gravity="center_vertical" />
 
@@ -29,15 +37,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="132"
+            android:textColor="@color/colorAccent"
             android:layout_marginLeft="5dp"
-            android:textSize="20sp"
-            android:textAlignment="viewStart"
-            android:focusable="false"
+            android:textSize="22sp"
             android:gravity="center_vertical">
         </TextView>
     </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>
 
 <!--
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"

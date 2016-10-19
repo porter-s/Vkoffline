@@ -5,7 +5,6 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -18,7 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -36,7 +35,6 @@ import java.util.ArrayList;
 import actionBarItem.AdapterItemAB;
 import actionBarItem.ItemAB;
 import layout.ScreenOne;
-import ru.example.sapp.vkoffline.R;
 
 
 /**
@@ -75,10 +73,16 @@ public class LoginActivity extends ActionBarActivity {
     AdapterItemAB itemAdapter;
 
     void fillData(String[] _string) {
-        itemABArrayList.add(new ItemAB(R.drawable.ic_home_black_12dp,_string[0]));
-        itemABArrayList.add(new ItemAB(R.drawable.ic_drawer,_string[1]));
-        itemABArrayList.add(new ItemAB(R.drawable.ic_drawer,_string[2]));
-        itemABArrayList.add(new ItemAB(R.drawable.ic_drawer,_string[3]));
+        itemABArrayList.add(new ItemAB(R.drawable.ic_my_page,_string[0]));
+        itemABArrayList.add(new ItemAB(R.drawable.ic_news,_string[1]));
+        itemABArrayList.add(new ItemAB(R.drawable.ic_message,_string[2]));
+        itemABArrayList.add(new ItemAB(R.drawable.ic_frend,_string[3]));
+        itemABArrayList.add(new ItemAB(R.drawable.ic_group,_string[4]));
+        itemABArrayList.add(new ItemAB(R.drawable.ic_foto,_string[5]));
+        itemABArrayList.add(new ItemAB(R.drawable.ic_audio,_string[6]));
+        itemABArrayList.add(new ItemAB(R.drawable.ic_video,_string[7]));
+        itemABArrayList.add(new ItemAB(R.drawable.ic_bookmarks,_string[8]));
+        itemABArrayList.add(new ItemAB(R.drawable.ic_settings,_string[9]));
     }
 
     @Override
@@ -244,6 +248,8 @@ public class LoginActivity extends ActionBarActivity {
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            FrameLayout selectItem = (FrameLayout) view.findViewById(R.id.selectItem);
+            selectItem.setVisibility(View.VISIBLE);
             selectItem(position);
         }
     }
