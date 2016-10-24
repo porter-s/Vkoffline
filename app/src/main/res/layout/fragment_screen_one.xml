@@ -6,12 +6,6 @@
     tools:context="layout.ScreenOne">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/textViewScrOne"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below ="@+id/imageViewFSO"
-        android:layout_marginTop="10dp" />
 
     <ProgressBar
         style="?android:attr/progressBarStyle"
@@ -22,9 +16,8 @@
         android:id="@+id/progressBarFSO" />
 
     <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        app:srcCompat="@mipmap/ic_launcher"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
         android:id="@+id/imageViewFSO"
@@ -32,21 +25,33 @@
 
     <TextView
         android:id="@+id/last_name_tvFSO"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment"
         android:layout_marginTop="20dp"
         android:layout_toRightOf="@+id/imageViewFSO"
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/first_name_tvFSO"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="@string/hello_blank_fragment"
         android:layout_toRightOf="@+id/imageViewFSO"
         android:layout_below ="@+id/last_name_tvFSO"
         android:textSize="18sp" />
+
+    <TextView
+        android:text="  Фотографии"
+        android:background="#DEE5EB"
+        android:textColor="#8699B0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/imageViewFSO"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textAlignment="textStart"
+        android:textStyle="normal|bold" />
 
 </RelativeLayout>

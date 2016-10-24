@@ -2,6 +2,7 @@
     <integer name="com_vk_sdk_AppId">5660225</integer>
     <string name="app_name">Vk offline</string>
     <string name="action_search">action_search</string>
+    <string name="DIR_SD">VK_OFFLINE_TEMP_FILE</string>
     <string-array name="screen_array">
         <item>Моя Страница</item>
         <item>Новости</item>
