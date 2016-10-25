@@ -34,6 +34,7 @@ import java.util.ArrayList;
 
 import actionBarItem.AdapterItemAB;
 import actionBarItem.ItemAB;
+import layout.ScreenFrends;
 import layout.ScreenOne;
 
 
@@ -265,10 +266,10 @@ public class LoginActivity extends ActionBarActivity {
                 fragment = new ScreenOne();
                 break;
             case 1:
-                fragment = new ScreenOne();
+                fragment = new ScreenFrends();
                 break;
             case 2:
-                fragment = new ScreenOne();
+                //fragment = new ScreenOne();
                 break;
             default:
                 break;

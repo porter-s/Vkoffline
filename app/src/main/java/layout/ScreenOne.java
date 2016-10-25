@@ -4,8 +4,10 @@ package layout;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.nfc.Tag;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +39,7 @@ public class ScreenOne extends Fragment {
     ProgressBar progressBar;
     ImageView imageView;
     Context context;
+    String LOG_TAG = "ScreenOne";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -52,7 +55,9 @@ public class ScreenOne extends Fragment {
         imageView = (ImageView) rootView.findViewById(R.id.imageViewFSO);
 
         MyPageRequest myPageRequest = new MyPageRequest();
-        myPageRequest.loadData("myPage");
+        myPageRequest.deleteData("frends");
+        myPageRequest.loadData("frends");
+        Log.e(LOG_TAG,"Start Load");
        // VKRequest request=VKApi.groups().get(VKParameters.from("count",2,"extended",1,"fields"));
         /*VKRequest request = VKApi.users().get(VKParameters.from(VKApiConst.FIELDS, "first_name,last_name,photo_50,photo_200"));
         request.start();

@@ -2,7 +2,9 @@ package requestHandler;
 
 import android.os.Environment;
 import android.util.Log;
+import android.view.View;
 
+import com.squareup.picasso.Picasso;
 import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKApiConst;
 import com.vk.sdk.api.VKError;
@@ -10,8 +12,10 @@ import com.vk.sdk.api.VKParameters;
 import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONStringer;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -30,9 +34,11 @@ import ru.example.sapp.vkoffline.R;
 public class MyPageRequest {
 
     String LOG_TAG = "MyPageRequest";
+    VKRequest request = null;
+    VKResponse _response = null;
 
-    VKRequest getData(String _page){
-        VKRequest request = null;
+    VKResponse getData(final String _page){
+
         switch (_page){
             case "myPage":
                 request = VKApi.users().get(VKParameters.from(VKApiConst.FIELDS, "photo_id, verified, sex, " +
@@ -74,17 +80,21 @@ public class MyPageRequest {
             break;
 
             case "frends":
-                request = VKApi.friends().get(VKParameters.from(VKApiConst.FIELDS, "nickname, domain, " +
-                        "sex, bdate, city, country, timezone, photo_50, photo_100, photo_200_orig, " +
-                        "has_mobile, contacts, education, online, relation, last_seen, status, " +
-                        "can_write_private_message, can_see_all_posts, can_post, universities"));
+                request = VKApi.friends().get(VKParameters.from(VKApiConst.FIELDS, "nickname, domain, " ));//+
+                        //"sex, bdate, city, country, timezone, photo_50, photo_100, photo_200_orig, " +
+                        //"has_mobile, contacts, education, online, relation, last_seen, status, " +
+                        //"can_write_private_message, can_see_all_posts, can_post, universities"));
                 request.start();
 
                 request.setRequestListener(new VKRequest.VKRequestListener() {
 
                     @Override
                     public void onComplete(VKResponse response) {
+
                         super.onComplete(response);
+                        _response = response;
+                        saveData(_page,response);
+                        Log.e(LOG_TAG,"Save File Start");
                     }
 
                     @Override
@@ -118,7 +128,7 @@ public class MyPageRequest {
                 break;
         }
 
-        return request;
+        return _response;
     }
 
     boolean reloadData(String _page, String _data){
@@ -128,8 +138,7 @@ public class MyPageRequest {
 
     public String loadData(String _page){
         if (readData(_page)==null){
-            if(saveData(_page,getData(_page))) Log.e(LOG_TAG,"ВСЕ ОК");
-            else Log.e(LOG_TAG,"NOT ВСЕ ОК");
+            getData(_page);
         }
         return null;
     }
@@ -154,9 +163,13 @@ public class MyPageRequest {
             String str = "";
             // читаем содержимое
             while ((str = br.readLine()) != null) {
-                Log.d(LOG_TAG, str);
+                Log.e(LOG_TAG,"str=" + str);
             }
+            Log.e(LOG_TAG,"Readn File conwert JSON");
+            //JSONObject jsonData = str.toString();
+
             JSONObject jsonData = new JSONObject(str);
+            Log.e(LOG_TAG,"File yes Found");
             return jsonData;
         } catch (FileNotFoundException e) {
             Log.e(LOG_TAG,"Error File Not Found");
@@ -173,7 +186,7 @@ public class MyPageRequest {
         }
     }
 
-    boolean saveData(String _page,VKRequest _data){
+    boolean saveData(String _page,VKResponse _data){
 
         // проверяем доступность SD
         if (!Environment.getExternalStorageState().equals(
@@ -189,25 +202,69 @@ public class MyPageRequest {
         sdPath.mkdirs();
         // формируем объект File, который содержит путь к файлу
         File sdFile = new File(sdPath, _page);
-        try {
             // открываем поток для записи
-            BufferedWriter bw = new BufferedWriter(new FileWriter(sdFile));
-            // пишем данные
-            bw.write(String.valueOf(_data));
-            // закрываем поток
-            bw.close();
-            Log.d(LOG_TAG, "Файл записан на SD: " + sdFile.getAbsolutePath());
-            return true;
+        BufferedWriter bw = null;
+        try {
+            bw = new BufferedWriter(new FileWriter(sdFile));
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        // пишем данные
+        try {
+            Log.e(LOG_TAG,"JSON="+String.valueOf(_data.json));
+            bw.write(String.valueOf(_data.json));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // закрываем поток
+        try {
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.d(LOG_TAG, "Файл записан на SD: " + sdFile.getAbsolutePath());
+            return true;
+    }
+
+    public boolean deleteData(String _page){
+
+        // проверяем доступность SD
+        if (!Environment.getExternalStorageState().equals(
+                Environment.MEDIA_MOUNTED)) {
+            Log.d(LOG_TAG, "SD-карта не доступна: " + Environment.getExternalStorageState());
             return false;
         }
-    }
+        // получаем путь к SD
+        File sdPath = Environment.getExternalStorageDirectory();
+        // добавляем свой каталог к пути
+        sdPath = new File(sdPath.getAbsolutePath() + "/" + R.string.DIR_SD);
+        // создаем каталог
+        sdPath.mkdirs();
+        // формируем объект File, который содержит путь к файлу
+        File sdFile = new File(sdPath, _page);
 
-    boolean deleteData(String _page){
-
+        Log.e(LOG_TAG,"Удаление файла");
+        sdFile.delete();
+        Log.e(LOG_TAG,"Файл удален");
         return false;
     }
+
+    /*VKRequest.VKRequestListener mRequestListener = new VKRequest.VKRequestListener() {
+        @Override
+        public void onComplete(VKResponse response) {
+            Log.e(LOG_TAG,"Load complite");
+        }
+
+        @Override
+        public void onError(VKError error) {
+
+        }
+
+        @Override
+        public void onProgress(VKRequest.VKProgressType progressType, long bytesLoaded, long bytesTotal) {
+
+        }
+    };*/
 }
 /*
     void writeFile() {
